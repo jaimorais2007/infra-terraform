@@ -1,3 +1,8 @@
+output "k3s_cluster_eip" {
+  description = "Elastic IP fixo da EC2 do cluster k3s"
+  value       = data.aws_eip.k3s_cluster.public_ip
+}
+
 output "api_endpoint" {
   description = "URL do API Gateway da Fase 4"
   value       = aws_apigatewayv2_api.this.api_endpoint
