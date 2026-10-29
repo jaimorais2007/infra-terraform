@@ -1,0 +1,66 @@
+# Roteamento por prefixo no Traefik (ja embutido no k3s): um unico Elastic IP na porta 80
+# distribui pros 3 microsservicos, removendo o prefixo antes de entregar pro servico
+# (ver infra-terraform/README e o output k3s_cluster_eip). Cada Service abaixo e o que o
+# pipeline de cada repositorio (ci-templates/dotnet-service.yml) cria no namespace oficina
+# com o nome igual ao service-name (os-service / billing-service / execution-service),
+# escutando na porta 8080.
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: strip-os
+  namespace: oficina
+spec:
+  stripPrefix:
+    prefixes:
+      - /os
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: strip-billing
+  namespace: oficina
+spec:
+  stripPrefix:
+    prefixes:
+      - /billing
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: strip-execution
+  namespace: oficina
+spec:
+  stripPrefix:
+    prefixes:
+      - /execution
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: oficina-services
+  namespace: oficina
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: PathPrefix(`/os`)
+      kind: Rule
+      middlewares:
+        - name: strip-os
+      services:
+        - name: os-service
+          port: 8080
+    - match: PathPrefix(`/billing`)
+      kind: Rule
+      middlewares:
+        - name: strip-billing
+      services:
+        - name: billing-service
+          port: 8080
+    - match: PathPrefix(`/execution`)
+      kind: Rule
+      middlewares:
+        - name: strip-execution
+      services:
+        - name: execution-service
+          port: 8080

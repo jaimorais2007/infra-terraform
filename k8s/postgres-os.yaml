@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres-os
+  namespace: oficina
+spec:
+  serviceName: postgres-os
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres-os
+  template:
+    metadata:
+      labels:
+        app: postgres-os
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:16-alpine
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_DB
+              value: oficina_os
+            - name: POSTGRES_USER
+              value: os_service
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-os-secret
+                  key: POSTGRES_PASSWORD
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/postgresql/data
+          readinessProbe:
+            exec:
+              command: ["pg_isready", "-U", "os_service", "-d", "oficina_os"]
+            initialDelaySeconds: 5
+            periodSeconds: 10
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: local-path
+        resources:
+          requests:
+            storage: 2Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-os
+  namespace: oficina
+spec:
+  clusterIP: None
+  selector:
+    app: postgres-os
+  ports:
+    - port: 5432
+      targetPort: 5432
