@@ -1,4 +1,4 @@
-# Roteamento por prefixo no Traefik (ja embutido no k3s): um unico Elastic IP na porta 80
+# Roteamento por prefixo no Traefik (ja embutido no k3s): um unico Elastic IP no NodePort 32276 do Traefik
 # distribui pros 3 microsservicos, removendo o prefixo antes de entregar pro servico
 # (ver infra-terraform/README e o output k3s_cluster_eip). Cada Service abaixo e o que o
 # pipeline de cada repositorio (ci-templates/dotnet-service.yml) cria no namespace oficina

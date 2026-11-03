@@ -29,6 +29,9 @@ Ver o relatório de passagem da Fase 4 para a lista completa por serviço.
 
 ## Roteamento (`ingress.yaml`)
 
+**A porta 80 do host esta ocupada** pelo Service `default/oficina-mecanica-api-svc` (Fase 2/3), entao o
+Traefik e acessado pelo NodePort `32276`. Nas URLs abaixo, use `http://<EIP>:32276/...`.
+
 Um único `IngressRoute` do Traefik (CRDs `traefik.io/v1alpha1`, já instalado no k3s — confirmado
 Traefik 3.7.8) separa por prefixo e remove o prefixo antes de entregar pro serviço:
 
