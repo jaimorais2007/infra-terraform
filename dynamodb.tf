@@ -7,7 +7,7 @@
 #   pk = "EVENT#<eventId>" sk = "PROCESSED"   (com ttl para expirar)
 
 resource "aws_dynamodb_table" "billing" {
-  name         = "${var.project}-billing"
+  name = "${var.project}-billing"
   # Capacidade provisionada pequena: tabela + índice somam 10 RCU / 10 WCU,
   # dentro das 25 RCU / 25 WCU da cota sempre gratuita do DynamoDB.
   billing_mode   = "PROVISIONED"
