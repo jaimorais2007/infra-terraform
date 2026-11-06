@@ -67,9 +67,11 @@ variable "service_routes" {
   description = "Mapa serviço => lista de prefixos de path atendidos por ele"
   type        = map(list(string))
   default = {
-    os        = ["/api/ServiceOrders", "/api/Customer", "/api/Vehicle"]
-    billing   = ["/api/Budgets", "/api/Payments"]
-    execution = ["/api/Executions", "/api/Parts", "/api/Service"]
+    # Arquitetura v2 (Excalidraw 06/11): Cliente/Veiculo no RegistryService
+    # (ainda publicado como "execution"); catalogo, pecas e pagamento no Billing.
+    os        = ["/api/ServiceOrders"]
+    billing   = ["/api/Service", "/api/Parts", "/api/Payments"]
+    execution = ["/api/Customer", "/api/Vehicle"]
   }
 }
 
