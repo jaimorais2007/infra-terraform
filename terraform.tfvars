@@ -2,6 +2,6 @@
 # Os demais servicos entram aqui quando estiverem publicados no cluster.
 service_urls = {
   os        = ""
-  billing   = ""
+  billing   = "http://34.239.92.126:32276/billing"
   execution = "http://34.239.92.126:32276/execution"
 }
