@@ -25,17 +25,22 @@ variable "events" {
     consumers = list(string)
   }))
   default = {
-    OrderCreated       = { publisher = "os", consumers = ["billing"] }
-    BudgetCreated      = { publisher = "billing", consumers = ["os"] }
-    BudgetApproved     = { publisher = "billing", consumers = ["os"] }
-    BudgetRejected     = { publisher = "billing", consumers = ["os"] }
-    PaymentConfirmed   = { publisher = "billing", consumers = ["os", "execution"] }
-    PaymentFailed      = { publisher = "billing", consumers = ["os"] }
-    PaymentExpired     = { publisher = "billing", consumers = ["os"] }
-    PaymentRefunded    = { publisher = "billing", consumers = ["os"] }
-    ExecutionStarted   = { publisher = "execution", consumers = ["os"] }
-    ExecutionCompleted = { publisher = "execution", consumers = ["os"] }
-    ExecutionFailed    = { publisher = "execution", consumers = ["billing", "os"] }
+    OrderCreated         = { publisher = "os", consumers = [] }
+    BudgetCreated        = { publisher = "billing", consumers = ["os"] }
+    BudgetApproved       = { publisher = "billing", consumers = ["os"] }
+    BudgetRejected       = { publisher = "billing", consumers = ["os"] }
+    PaymentConfirmed     = { publisher = "billing", consumers = ["os", "execution"] }
+    PaymentFailed        = { publisher = "billing", consumers = ["os"] }
+    PaymentExpired       = { publisher = "billing", consumers = ["os"] }
+    PaymentRefunded      = { publisher = "billing", consumers = ["os"] }
+    ExecutionStarted     = { publisher = "execution", consumers = ["os"] }
+    ExecutionCompleted   = { publisher = "execution", consumers = ["os"] }
+    ExecutionFailed      = { publisher = "execution", consumers = ["os"] }
+    ServiceOrderApproved = { publisher = "os", consumers = ["billing"] }
+    PartStockEnsured     = { publisher = "billing", consumers = ["os"] }
+    ServiceDeleted       = { publisher = "billing", consumers = ["os"] }
+    PartDeleted          = { publisher = "billing", consumers = ["os"] }
+    PartStockAdded       = { publisher = "billing", consumers = ["os"] }
   }
 }
 
