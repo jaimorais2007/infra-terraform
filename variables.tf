@@ -33,9 +33,8 @@ variable "events" {
     PaymentFailed        = { publisher = "billing", consumers = ["os"] }
     PaymentExpired       = { publisher = "billing", consumers = ["os"] }
     PaymentRefunded      = { publisher = "billing", consumers = ["os"] }
-    ExecutionStarted     = { publisher = "execution", consumers = ["os"] }
-    ExecutionCompleted   = { publisher = "execution", consumers = ["os"] }
-    ExecutionFailed      = { publisher = "execution", consumers = ["os"] }
+    CustomerDeleted      = { publisher = "execution", consumers = ["os"] }
+    VehicleDeleted       = { publisher = "execution", consumers = ["os"] }
     ServiceOrderApproved = { publisher = "os", consumers = ["billing"] }
     PartStockEnsured     = { publisher = "billing", consumers = ["os"] }
     ServiceDeleted       = { publisher = "billing", consumers = ["os"] }
