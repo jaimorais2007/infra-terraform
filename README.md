@@ -6,7 +6,7 @@ Infraestrutura AWS do Tech Challenge Fase 4 (oficina mecânica em microsserviço
 
 | Recurso | Para quê |
 | --- | --- |
-| 16 tópicos SNS (um por evento da Saga) | Publicação dos eventos; o SNS entrega para todos os consumidores |
+| 15 tópicos SNS (um por evento da Saga) | Publicação dos eventos; o SNS entrega para todos os consumidores |
 | 3 filas SQS + 3 DLQs (uma por serviço) | Cada serviço consome os eventos que lhe interessam; falhas repetidas vão para a DLQ |
 | Tabela DynamoDB `oficina-billing` | Banco NoSQL do Billing Service (serviços, peças, pagamentos e outbox) |
 | 3 usuários IAM (um por serviço) | Permissão mínima: publicar os próprios eventos, ler a própria fila e, no Billing, acessar o DynamoDB |
@@ -26,9 +26,8 @@ O state fica no bucket `techchallenge-terraform-state-s3`, key `fase4/infra/terr
 | PaymentFailed | billing | os |
 | PaymentExpired | billing | os |
 | PaymentRefunded | billing | os |
-| ExecutionStarted | execution | os |
-| ExecutionCompleted | execution | os |
-| ExecutionFailed | execution | os |
+| CustomerDeleted | execution | os |
+| VehicleDeleted | execution | os |
 | ServiceOrderApproved | os | billing |
 | PartStockEnsured | billing | os |
 | ServiceDeleted | billing | os |
