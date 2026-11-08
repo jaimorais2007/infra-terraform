@@ -44,6 +44,16 @@ variable "events" {
   }
 }
 
+# Filas de outros serviços em que cada serviço pode enviar mensagens diretamente
+# (sem passar por SNS). Usado pelas notificações de e-mail do OS -> execution.
+variable "direct_queue_targets" {
+  description = "Mapa serviço remetente => lista de serviços cujas filas ele pode escrever"
+  type        = map(list(string))
+  default = {
+    os = ["execution"]
+  }
+}
+
 variable "dlq_max_receive_count" {
   description = "Tentativas de processamento antes de a mensagem ir para a DLQ"
   type        = number
