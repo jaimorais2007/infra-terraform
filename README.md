@@ -18,21 +18,20 @@ O state fica no bucket `techchallenge-terraform-state-s3`, key `fase4/infra/terr
 
 | Evento | Publicado por | Consumido por |
 | --- | --- | --- |
-| OrderCreated | os | (nenhum) |
-| BudgetCreated | billing | os |
-| BudgetApproved | billing | os |
-| BudgetRejected | billing | os |
-| PaymentConfirmed | billing | os, execution |
-| PaymentFailed | billing | os |
+| BudgetApproved | os | billing |
+| ServiceOrderApproved | os | billing |
+| ServiceOrderRejected | os | billing |
+| PaymentCreated | billing | os |
+| PaymentCreationFailed | billing | os |
+| PaymentConfirmed | billing | os |
 | PaymentExpired | billing | os |
 | PaymentRefunded | billing | os |
+| PartStockEnsured | billing | os |
+| PartStockAdded | billing | os |
+| PartDeleted | billing | os |
+| ServiceDeleted | billing | os |
 | CustomerDeleted | execution | os |
 | VehicleDeleted | execution | os |
-| ServiceOrderApproved | os | billing |
-| PartStockEnsured | billing | os |
-| ServiceDeleted | billing | os |
-| PartDeleted | billing | os |
-| PartStockAdded | billing | os |
 
 Para mudar o contrato, edite `var.events` em `variables.tf` e abra um PR.
 
