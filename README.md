@@ -6,7 +6,7 @@ Infraestrutura AWS do Tech Challenge Fase 4 (oficina mecânica em microsserviço
 
 | Recurso | Para quê |
 | --- | --- |
-| 15 tópicos SNS (um por evento da Saga) | Publicação dos eventos; o SNS entrega para todos os consumidores |
+| 14 tópicos SNS (um por evento da Saga, definidos em `var.events`) | Publicação dos eventos; o SNS entrega para todos os consumidores |
 | 3 filas SQS + 3 DLQs (uma por serviço) | Cada serviço consome os eventos que lhe interessam; falhas repetidas vão para a DLQ |
 | Tabela DynamoDB `oficina-billing` | Banco NoSQL do Billing Service (serviços, peças, pagamentos e outbox) |
 | 3 usuários IAM (um por serviço) | Permissão mínima: publicar os próprios eventos, ler a própria fila e, no Billing, acessar o DynamoDB |
